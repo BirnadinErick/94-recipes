@@ -1,0 +1,17 @@
+{
+  "name": "94-recipes/backend",
+  "version": "1.0.0",
+  "description": "backend for code assignment of recipe app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Birnadin Erick",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "dotenv-expand": "^10.0.0",
+    "mongodb": "6.2"
+  }
+}
