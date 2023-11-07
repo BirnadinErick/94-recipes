@@ -1,5 +1,7 @@
-var dotenv = require('dotenv')
-var dotenvExpand = require('dotenv-expand')
+const dotenv = require('dotenv')
+const dotenvExpand = require('dotenv-expand')
+const { MongoClient } = require("mongodb");
+
 
 /* WHY ENVVARS?
  * do this early as possible to bootstrap any variables
@@ -11,3 +13,25 @@ var dotenvExpand = require('dotenv-expand')
 */
 var env = dotenv.config()
 dotenvExpand.expand(env)
+
+// alias to de-clutter the source listings
+env = process.env
+
+const uri = env['ATLAS_URI'];
+
+const client = new MongoClient(uri);
+
+async function run() {
+  try {
+    const database = client.db('primary');
+    const movies = database.collection('recipes');
+
+    const query = { title: 'Pizza with Pumpkin' };
+    const movie = await movies.findOne(query);
+
+    console.log(movie);
+  } finally {
+    await client.close();
+  }
+}
+run().catch(console.dir);
