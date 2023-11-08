@@ -42,13 +42,45 @@ console.debug("[94Recipes API] ATLAS intialized!");
 // intialize app
 const app = express();
 
-/* Middlewares
- * here registeration of middlewares
- *
- * some such:
- * - body parser
+/* Boady Parser
+ * this middleware, takes a request and parses
+ * its body. It is predetermined that bodies are
+ * JSON strings.
  */
 app.use(bodyParserMid.json());
+console.debug("[94Recipes API] Body JSON parser chained!");
+
+/* CORS Patch
+ * since backend doesn't serve frontend, CORS need
+ * to be taken into account. I have been permissive
+ * but not a good idea to open up to the world.
+ *
+ * During production, Origin should be limited and
+ * Credentials should be taken care, if let as it is now.
+ */
+app.use((req, res, next) => {
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Max-Age": "3600",
+  });
+
+  // Browser will do a preflight if the egress' ORIGIN
+  // is not as same as the `document` ORIGIN. So,we handle
+  // it here, since OPTIONS for each route would be tedious!
+  if (req.method === "OPTIONS") {
+    // preflights (verb OPTIONS) should not carry a body,
+    // so, 204 (No Content) is set as status and responded.
+    res.sendStatus(204);
+  } else {
+    // this is request for the required function of the app,
+    // so we proceed.
+    next();
+  }
+});
+console.debug("[94Recipes API] CORS patch chained!");
 
 /* Routes
  * Using psuedo-MVC pattern.
