@@ -7,6 +7,8 @@ import Root from "./routes/root";
 import ErrorPage from "./components/Error";
 import SignUp from "./routes/signin";
 import signInAction from "./utils/signInAction";
+import LogIn from "./routes/login";
+import { logInFormAction } from "./utils/logInAction";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,11 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
         action: signInAction,
+      },
+      {
+        path: "/login",
+        element: <LogIn />,
+        action: logInFormAction,
       },
     ],
   },

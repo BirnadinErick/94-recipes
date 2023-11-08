@@ -104,6 +104,7 @@ app.get(USER_RESOURCE_PATH + "/:uname", userController.getAUser(atlas.users)); /
 app.post(USER_RESOURCE_PATH, userController.createAUser(atlas.users));
 // app.patch(USER_RESOURCE_PATH, userController.updateAUser);
 // app.delete(USER_RESOURCE_PATH, userController.deleteAUser);
+app.post(USER_RESOURCE_PATH + "/login", userController.logInUser(atlas.users));
 
 // recipe
 app.get(

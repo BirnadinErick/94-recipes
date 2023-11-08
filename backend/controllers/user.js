@@ -57,7 +57,23 @@ function deleteAUser(req, res) {
   throw Error("not implemented");
 }
 
+function authenticateUser(usersCollection) {
+  return async (req, res) => {
+    const credentials = req.body;
+
+    const user = await usersCollection.findOne({ uname: credentials.uname });
+
+    if (password.validateHash(user.passwd, credentials.passwd)) {
+      // TODO: store session
+      res.status(200).json({ msg: "OK" });
+    } else {
+      res.status(401).json({ msg: "Check username/password pair" });
+    }
+  };
+}
+
 exports.getAUser = getAUser;
 exports.createAUser = createAUser;
 exports.updateAUser = updateAUser;
 exports.deleteAUser = deleteAUser;
+exports.logInUser = authenticateUser;
