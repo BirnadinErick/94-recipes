@@ -60,7 +60,7 @@ console.debug("[94Recipes API] configuring routes...");
 
 // user
 app.get(USER_RESOURCE_PATH + "/:uname", userController.getAUser); // :uname unique identifier for a user
-app.post(USER_RESOURCE_PATH, userController.createAUser);
+app.post(USER_RESOURCE_PATH, userController.createAUser(atlas.users));
 app.patch(USER_RESOURCE_PATH, userController.updateAUser);
 app.delete(USER_RESOURCE_PATH, userController.deleteAUser);
 
