@@ -12,6 +12,8 @@ import { Provider } from "react-redux";
 import store from "./utils/state/store";
 import Recipes from "./routes/recipes";
 import recipesLoader from "./utils/recipesLoader";
+import recipeLoader from "./utils/recipeLoader";
+import Recipe from "./routes/recipe";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,11 @@ const router = createBrowserRouter([
         path: "/recipes",
         element: <Recipes />,
         loader: recipesLoader,
+      },
+      {
+        path: "/recipes/:slug",
+        element: <Recipe />,
+        loader: recipeLoader,
       },
     ],
   },

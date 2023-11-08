@@ -2,8 +2,16 @@ function getARecipe(recipesCollection) {
   return async (req, res) => {
     try {
       // recipes are identified with recipeId(rid externally to cloak implementation details)
-      const query = { recipeId: parseInt(req.params.rid) };
-      const recipe = await recipesCollection.findOne(query);
+      const query = { slug: req.params.slug };
+      const recipe = await recipesCollection.findOne(query, {
+        projections: {
+          _id: 0,
+          title: 1,
+          ptime: 1,
+          ing: 1,
+          slug: 0, // because we already have it, as we'd have queried
+        },
+      });
       res.json(recipe);
     } catch (error) {
       console.error(error);
@@ -75,7 +83,18 @@ function deleteARecipe(recipesCollection) {
 
 function getManyRecipes(recipesCollection) {
   return async (req, res) => {
-    const recipes = await recipesCollection.find();
+    const recipes = await recipesCollection.find(
+      {},
+      {
+        projections: {
+          _id: 0,
+          title: 1,
+          ptime: 1,
+          ing: 0,
+          slug: 1,
+        },
+      }
+    );
 
     if ((await recipes.countDocuments) === 0) {
       res.status(204).json({ msg: "No recipes have been created yet" });

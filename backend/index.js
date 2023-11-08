@@ -108,7 +108,7 @@ app.post(USER_RESOURCE_PATH + "/login", userController.logInUser(atlas.users));
 
 // recipe
 app.get(
-  RECIPE_RESOURCE_PATH + "/:rid",
+  RECIPE_RESOURCE_PATH + "/:slug",
   recipeController.getARecipe(atlas.recipes)
 );
 app.get(RECIPE_RESOURCE_PATH, recipeController.getManyRecipes(atlas.recipes));
