@@ -4,6 +4,7 @@ const express = require("express");
 const userController = require("./controllers/user");
 const recipeController = require("./controllers/recipe");
 const driverDB = require("./utils/db");
+const bodyParserMid = require("body-parser");
 
 console.info(`[94Recipes API] booting...`);
 console.debug("[94Recipes API] parsing runtime variables...");
@@ -21,10 +22,10 @@ dotenvExpand.expand(env);
 // alias to de-clutter the source listings
 env = process.env;
 
-const DB_URI = env["ATLAS_URI"];
+const DB_URI = env["ATLAS_URI"] || process.exit(1); // if not specified, unrecoverable error
 console.debug("[94Recipes API] datastore: ATLAS");
 
-const DB_NAME = env["ATLAS_NAME"];
+const DB_NAME = env["ATLAS_NAME"] || process.exit(1); // if not specified, unrecoverable error
 console.debug(`[94Recipes API] datastore name: ${DB_NAME}`);
 
 const PORT = env["PORT"] ? env["PORT"] : 2003;
@@ -40,6 +41,14 @@ console.debug("[94Recipes API] ATLAS intialized!");
 
 // intialize app
 const app = express();
+
+/* Middlewares
+ * here registeration of middlewares
+ *
+ * some such:
+ * - body parser
+ */
+app.use(bodyParserMid.json());
 
 /* Routes
  * Using psuedo-MVC pattern.
@@ -59,19 +68,25 @@ const app = express();
 console.debug("[94Recipes API] configuring routes...");
 
 // user
-app.get(USER_RESOURCE_PATH + "/:uname", userController.getAUser); // :uname unique identifier for a user
+app.get(USER_RESOURCE_PATH + "/:uname", userController.getAUser(atlas.users)); // :uname unique identifier for a user
 app.post(USER_RESOURCE_PATH, userController.createAUser(atlas.users));
-app.patch(USER_RESOURCE_PATH, userController.updateAUser);
-app.delete(USER_RESOURCE_PATH, userController.deleteAUser);
+// app.patch(USER_RESOURCE_PATH, userController.updateAUser);
+// app.delete(USER_RESOURCE_PATH, userController.deleteAUser);
 
 // recipe
 app.get(
   RECIPE_RESOURCE_PATH + "/:rid",
   recipeController.getARecipe(atlas.recipes)
 );
-app.post(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
-app.patch(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
-app.delete(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+app.post(RECIPE_RESOURCE_PATH, recipeController.createARecipe(atlas.recipes));
+app.put(
+  RECIPE_RESOURCE_PATH + "/:rid",
+  recipeController.updateARecipe(atlas.recipes)
+); // !note this is PUT, not PATCH
+app.delete(
+  RECIPE_RESOURCE_PATH + "/:rid",
+  recipeController.deleteARecipe(atlas.recipes)
+);
 
 console.info("[94Recipes API] configured routes.");
 

@@ -6,44 +6,55 @@ const password = require("../utils/password");
  * acts as a glue between the external environment and the datastore
  */
 
-function getAUser(req, res) {
-  // get uname
-  const uname = req.params.uname;
-  // query db
+function getAUser(usersCollection) {
+  return async (req, res) => {
+    const user = await usersCollection.findOne({ uname: req.params.uname });
 
-  // parse the results
-  res.send([req.params.uname]);
+    // _id is internal, no need to leak
+    // could have specified in options.projection for `findOne` but, deleting just 1
+    // seems overwight!
+    // TODO: exclude at Data Layer
+    delete user._id;
+    res.json(user);
+  };
 }
 
 function createAUser(usersCollection) {
   return async (req, res) => {
     // TODO: @2nd iteration validations
-    // create record
     const docToInsert = {
       uname: req.query.uname,
       passwd: await password.hash(req.query.passwd),
       pic: req.query.pic,
       bio: req.query.bio,
     };
-    await usersCollection.insertOne(docToInsert);
-
-    res.status(201).json({ uname: docToInsert.uname });
+    const result = await usersCollection.insertOne(docToInsert);
+    if (result.acknowledged) {
+      res.status(201).json({ uname: docToInsert.uname });
+    } else {
+      res.status(501).json({ msg: "Unable to create user" });
+    }
   };
 }
 
+/*
+ * Since assignment specification doesn't require these
+ * following features, these are here as a second thought
+ */
 function updateAUser(req, res) {
   // get the fields to upadte
+  const updateDoc = {};
   // TODO: @2nd iteration validations
   // update the fields
   // return uname
-  res.send([1]);
+  throw Error("not implemented");
 }
 
 function deleteAUser(req, res) {
   // get the uname
   // delete the record
   // return deleted uname
-  res.send([1]);
+  throw Error("not implemented");
 }
 
 exports.getAUser = getAUser;
