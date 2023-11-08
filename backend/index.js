@@ -25,12 +25,9 @@ console.debug(`[94Recipes API] port to listen ${PORT}`);
 const USER_RESOURCE_PATH = "/v1/user";
 const RECIPE_RESOURCE_PATH = "/v1/recipe";
 console.debug(`[94Recipes API] user resource path ${USER_RESOURCE_PATH}`);
-    const movie = await movies.findOne(query);
-
-    console.log(movie);
-  } finally {
-    await client.close();
-  }
+// intiate atlas driver
+const atlas = driverDB.initDB(DB_URI, DB_NAME);
+console.debug("[94Recipes API] ATLAS intialized!");
 console.debug("[94Recipes API] configuring routes...");
 console.info("[94Recipes API] configured routes.");
 
