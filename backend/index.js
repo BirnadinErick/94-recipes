@@ -4,7 +4,7 @@ const express = require("express");
 const userController = require("./controllers/user");
 const recipeController = require("./controllers/recipe");
 const driverDB = require("./utils/db");
-const bodyPrserMid = require("body-parser");
+const bodyParserMid = require("body-parser");
 
 console.info(`[94Recipes API] booting...`);
 console.debug("[94Recipes API] parsing runtime variables...");
@@ -22,10 +22,10 @@ dotenvExpand.expand(env);
 // alias to de-clutter the source listings
 env = process.env;
 
-const DB_URI = env["ATLAS_URI"];
+const DB_URI = env["ATLAS_URI"] || process.exit(1); // if not specified, unrecoverable error
 console.debug("[94Recipes API] datastore: ATLAS");
 
-const DB_NAME = env["ATLAS_NAME"];
+const DB_NAME = env["ATLAS_NAME"] || process.exit(1); // if not specified, unrecoverable error
 console.debug(`[94Recipes API] datastore name: ${DB_NAME}`);
 
 const PORT = env["PORT"] ? env["PORT"] : 2003;
@@ -48,7 +48,7 @@ const app = express();
  * some such:
  * - body parser
  */
-app.use(bodyPrserMid.json());
+app.use(bodyParserMid.json());
 
 /* Routes
  * Using psuedo-MVC pattern.
