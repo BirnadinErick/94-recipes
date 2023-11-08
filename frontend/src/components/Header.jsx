@@ -12,8 +12,12 @@ export default function Header() {
           <img className="h-12" src={logo} alt="94Recipes logo" />
           <h2>94Recipes</h2>
         </div>
-        <p className="text-black/30">/</p>
-        <h4>Username</h4>
+        {isAuth && (
+          <>
+            <p className="text-black/30">/</p>
+            <h4>{uname}</h4>
+          </>
+        )}
       </div>
       <nav className="flex justify-center items-center space-x-4">
         <ul className="flex space-x-4 items-baseline justify-end cursor-pointer select-none">
@@ -21,7 +25,8 @@ export default function Header() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/login">{isAuth ? uname : "Log In"}</Link>
+            {/* TODO: logout if isAuth */}
+            <Link to="/login">{isAuth ? "Log Out" : "Log In"}</Link>
           </li>
           <li
             onClick={() => {

@@ -2,11 +2,13 @@ import { useState } from "react";
 import logInAction from "../utils/logInAction";
 import { useDispatch } from "react-redux";
 import { login } from "../utils/state/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function LogIn() {
   const [uname, setUname] = useState("");
   const [passwd, setPasswd] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <section>
@@ -20,8 +22,8 @@ export default function LogIn() {
               document.location.reload();
             }
             // dispatch login action and set the username
-            dispatch(login({ uname: data.uname }));
-            document.location.replace("/");
+            dispatch(login({ uname }));
+            navigate("/");
           });
         }}
       >
