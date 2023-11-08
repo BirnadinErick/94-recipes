@@ -65,7 +65,10 @@ app.patch(USER_RESOURCE_PATH, userController.updateAUser);
 app.delete(USER_RESOURCE_PATH, userController.deleteAUser);
 
 // recipe
-app.get(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+app.get(
+  RECIPE_RESOURCE_PATH + "/:rid",
+  recipeController.getARecipe(atlas.recipes)
+);
 app.post(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
 app.patch(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
 app.delete(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
