@@ -7,5 +7,5 @@ export default async function signInAction({ request }) {
 
   const result = await axios.post("http://localhost:2003/v1/user", details);
 
-  return redirect(`/login/${result.data.uname}`);
+  return redirect(`/login?u=${result.data.uname}`);
 }
