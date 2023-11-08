@@ -22,10 +22,10 @@ dotenvExpand.expand(env);
 // alias to de-clutter the source listings
 env = process.env;
 
-const DB_URI = env["ATLAS_URI"];
+const DB_URI = env["ATLAS_URI"] || process.exit(1); // if not specified, unrecoverable error
 console.debug("[94Recipes API] datastore: ATLAS");
 
-const DB_NAME = env["ATLAS_NAME"];
+const DB_NAME = env["ATLAS_NAME"] || process.exit(1); // if not specified, unrecoverable error
 console.debug(`[94Recipes API] datastore name: ${DB_NAME}`);
 
 const PORT = env["PORT"] ? env["PORT"] : 2003;
