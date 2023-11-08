@@ -36,3 +36,17 @@ console.info("[94Recipes API] configured routes.");
 app.listen(PORT, () => {
   console.log(`[94Recipes API] listening on port ${PORT}`);
 });
+/* Clean Up
+ * try to issue close syscall to open client,
+ * though process might exit before call return,
+ * OS context switch will clean up the stack afterwards
+ * And, in epemereal VMs this is not to worry!
+ */
+process.on("SIGINT", async () => {
+  console.log("exitting");
+  atlas.client
+    .close()
+    .then("driverDB closed the client!")
+    .catch("client failed to close!");
+  process.exit(0);
+});
