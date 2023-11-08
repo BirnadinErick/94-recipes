@@ -4,6 +4,7 @@ const express = require("express");
 const userController = require("./controllers/user");
 const recipeController = require("./controllers/recipe");
 const driverDB = require("./utils/db");
+const bodyPrserMid = require("body-parser");
 
 console.info(`[94Recipes API] booting...`);
 console.debug("[94Recipes API] parsing runtime variables...");
@@ -41,6 +42,14 @@ console.debug("[94Recipes API] ATLAS intialized!");
 // intialize app
 const app = express();
 
+/* Middlewares
+ * here registeration of middlewares
+ *
+ * some such:
+ * - body parser
+ */
+app.use(bodyPrserMid.json());
+
 /* Routes
  * Using psuedo-MVC pattern.
  * method on `app` is the Presentation layer verbs;
@@ -69,9 +78,15 @@ app.get(
   RECIPE_RESOURCE_PATH + "/:rid",
   recipeController.getARecipe(atlas.recipes)
 );
-app.post(RECIPE_RESOURCE_PATH, recipeController.createARecipe(atlas));
-app.put(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas)); // !note this is PUT, not PATCH
-app.delete(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+app.post(RECIPE_RESOURCE_PATH, recipeController.createARecipe(atlas.recipes));
+app.put(
+  RECIPE_RESOURCE_PATH + "/:rid",
+  recipeController.getARecipe(atlas.recipes)
+); // !note this is PUT, not PATCH
+app.delete(
+  RECIPE_RESOURCE_PATH + "/:rid",
+  recipeController.getARecipe(atlas.recipes)
+);
 
 console.info("[94Recipes API] configured routes.");
 
