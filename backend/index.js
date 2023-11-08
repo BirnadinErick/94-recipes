@@ -28,7 +28,37 @@ console.debug(`[94Recipes API] user resource path ${USER_RESOURCE_PATH}`);
 // intiate atlas driver
 const atlas = driverDB.initDB(DB_URI, DB_NAME);
 console.debug("[94Recipes API] ATLAS intialized!");
+// intialize app
+const app = express();
+
+/* Routes
+ * Using psuedo-MVC pattern.
+ * method on `app` is the Presentation layer verbs;
+ * method on `xController` is the Data layer verbs.
+ *
+ * All routes return JSON response. No errors are thrown,
+ * errors are indicated with status code and message is
+ * returned as JSON object property `msg`
+ *
+ * In the MVC manner, V is marshalled with JSON representation.
+ *
+ * Instead of global state, driveDB (`atlas` here) is passed as arguments to the
+ * handler(controller) function, which returns an asynchronous
+ * controller. All the controllers are defined in the subdirectory--controllers.
+ */
 console.debug("[94Recipes API] configuring routes...");
+
+// user
+app.get(USER_RESOURCE_PATH + "/:uname", userController.getAUser); // :uname unique identifier for a user
+app.post(USER_RESOURCE_PATH, userController.createAUser);
+app.patch(USER_RESOURCE_PATH, userController.updateAUser);
+app.delete(USER_RESOURCE_PATH, userController.deleteAUser);
+
+// recipe
+app.get(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+app.post(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+app.patch(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+app.delete(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
 console.info("[94Recipes API] configured routes.");
 
 app.listen(PORT, () => {
