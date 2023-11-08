@@ -59,7 +59,18 @@ function updateARecipe(recipesCollection) {
 }
 
 function deleteARecipe(recipesCollection) {
-  return async (req, res) => {};
+  return async (req, res) => {
+    const rid = req.params.rid;
+    const result = await recipesCollection.deleteOne({
+      recipeId: parseInt(rid),
+    });
+
+    if (result.acknowledged) {
+      res.sendStatus(202);
+    } else {
+      res.status(400).json({ msg: "Couldn't delete the record" });
+    }
+  };
 }
 
 exports.getARecipe = getARecipe;
