@@ -8,10 +8,11 @@ console.debug("[94Recipes API] parsing runtime variables...");
  * e.g. args[0] is better than env['PORT']
  * Later is self-explanatory.
 */
-var env = dotenv.config()
-dotenvExpand.expand(env)
+var env = dotenv.config();
+dotenvExpand.expand(env);
 
 // alias to de-clutter the source listings
+env = process.env;
 const DB_URI = env["ATLAS_URI"];
 console.debug("[94Recipes API] datastore: ATLAS");
 
