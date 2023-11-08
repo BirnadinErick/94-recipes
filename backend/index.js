@@ -1,3 +1,10 @@
+const dotenv = require("dotenv");
+const dotenvExpand = require("dotenv-expand");
+const express = require("express");
+const userController = require("./controllers/user");
+const recipeController = require("./controllers/recipe");
+const driverDB = require("./utils/db");
+
 console.info(`[94Recipes API] booting...`);
 console.debug("[94Recipes API] parsing runtime variables...");
 /* WHY ENVVARS?
@@ -7,12 +14,13 @@ console.debug("[94Recipes API] parsing runtime variables...");
  * scale in automated way. And, by this code documents itself,
  * e.g. args[0] is better than env['PORT']
  * Later is self-explanatory.
-*/
+ */
 var env = dotenv.config();
 dotenvExpand.expand(env);
 
 // alias to de-clutter the source listings
 env = process.env;
+
 const DB_URI = env["ATLAS_URI"];
 console.debug("[94Recipes API] datastore: ATLAS");
 
@@ -25,9 +33,11 @@ console.debug(`[94Recipes API] port to listen ${PORT}`);
 const USER_RESOURCE_PATH = "/v1/user";
 const RECIPE_RESOURCE_PATH = "/v1/recipe";
 console.debug(`[94Recipes API] user resource path ${USER_RESOURCE_PATH}`);
+
 // intiate atlas driver
 const atlas = driverDB.initDB(DB_URI, DB_NAME);
 console.debug("[94Recipes API] ATLAS intialized!");
+
 // intialize app
 const app = express();
 
@@ -59,11 +69,13 @@ app.get(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
 app.post(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
 app.patch(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
 app.delete(RECIPE_RESOURCE_PATH + "/:rid", recipeController.getARecipe(atlas));
+
 console.info("[94Recipes API] configured routes.");
 
 app.listen(PORT, () => {
   console.log(`[94Recipes API] listening on port ${PORT}`);
 });
+
 /* Clean Up
  * try to issue close syscall to open client,
  * though process might exit before call return,
