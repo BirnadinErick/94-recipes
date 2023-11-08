@@ -8,7 +8,8 @@ import ErrorPage from "./components/Error";
 import SignUp from "./routes/signin";
 import signInAction from "./utils/signInAction";
 import LogIn from "./routes/login";
-import { logInFormAction } from "./utils/logInAction";
+import { Provider } from "react-redux";
+import store from "./utils/state/store";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LogIn />,
-        action: logInFormAction,
       },
     ],
   },
@@ -32,6 +32,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

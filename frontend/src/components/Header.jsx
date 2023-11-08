@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const uname = useSelector((state) => state.auth.user.uname);
   return (
     <header className="flex justify-between px-4">
       <div className="flex justify-start items-center space-x-4">
@@ -18,7 +21,7 @@ export default function Header() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/login">{isAuth ? uname : "Log In"}</Link>
           </li>
           <li
             onClick={() => {

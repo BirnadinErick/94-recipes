@@ -1,9 +1,30 @@
-import { Form } from "react-router-dom";
+import { useState } from "react";
+import logInAction from "../utils/logInAction";
+import { useDispatch } from "react-redux";
+import { login } from "../utils/state/authSlice";
 
 export default function LogIn() {
+  const [uname, setUname] = useState("");
+  const [passwd, setPasswd] = useState("");
+  const dispatch = useDispatch();
+
   return (
     <section>
-      <Form method="post">
+      <form
+        method="post"
+        onSubmit={(e) => {
+          e.preventDefault();
+          Promise.resolve(logInAction({ uname, passwd })).then((data) => {
+            if (typeof data === "number") {
+              // error happened
+              document.location.reload();
+            }
+            // dispatch login action and set the username
+            dispatch(login({ uname: data.uname }));
+            document.location.replace("/");
+          });
+        }}
+      >
         <input
           className="block my-2 bg-gray-800 p-2 rounded-md text-white"
           type="text"
@@ -12,6 +33,8 @@ export default function LogIn() {
           placeholder="Username"
           required
           autoFocus
+          value={uname}
+          onChange={(e) => setUname(e.target.value)}
         />
         <input
           className="block my-2 bg-gray-800 p-2 rounded-md text-white"
@@ -20,6 +43,8 @@ export default function LogIn() {
           id="passwd"
           placeholder="Password"
           required
+          value={passwd}
+          onChange={(e) => setPasswd(e.target.value)}
         />
 
         <div className="space-x-4 my-2">
@@ -30,7 +55,7 @@ export default function LogIn() {
             Log In
           </button>
         </div>
-      </Form>
+      </form>
     </section>
   );
 }

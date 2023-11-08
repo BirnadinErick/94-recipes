@@ -62,8 +62,9 @@ function authenticateUser(usersCollection) {
     const credentials = req.body;
 
     const user = await usersCollection.findOne({ uname: credentials.uname });
+    const ok = await password.validateHash(user.passwd, credentials.passwd);
 
-    if (password.validateHash(user.passwd, credentials.passwd)) {
+    if (ok) {
       // TODO: store session
       res.status(200).json({ msg: "OK" });
     } else {
