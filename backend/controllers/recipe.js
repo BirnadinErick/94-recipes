@@ -13,4 +13,19 @@ function getARecipe(recipesCollection) {
   };
 }
 
+function createARecipe(recipesCollection) {
+  return async (res, req) => {};
+}
+
+function putARecipe(recipesCollection) {
+  return async (res, req) => {};
+}
+
+function deleteARecipe(recipesCollection) {
+  return async (res, req) => {};
+}
+
 exports.getARecipe = getARecipe;
+exports.createARecipe = createARecipe;
+exports.putARecipe = putARecipe;
+exports.deleteARecipe = deleteARecipe;
