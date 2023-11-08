@@ -10,6 +10,8 @@ import signInAction from "./utils/signInAction";
 import LogIn from "./routes/login";
 import { Provider } from "react-redux";
 import store from "./utils/state/store";
+import Recipes from "./routes/recipes";
+import recipesLoader from "./utils/recipesLoader";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LogIn />,
+      },
+      {
+        path: "/recipes",
+        element: <Recipes />,
+        loader: recipesLoader,
       },
     ],
   },

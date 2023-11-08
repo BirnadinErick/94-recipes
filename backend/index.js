@@ -111,6 +111,7 @@ app.get(
   RECIPE_RESOURCE_PATH + "/:rid",
   recipeController.getARecipe(atlas.recipes)
 );
+app.get(RECIPE_RESOURCE_PATH, recipeController.getManyRecipes(atlas.recipes));
 app.post(RECIPE_RESOURCE_PATH, recipeController.createARecipe(atlas.recipes));
 app.put(
   RECIPE_RESOURCE_PATH + "/:rid",

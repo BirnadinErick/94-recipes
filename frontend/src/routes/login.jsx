@@ -23,7 +23,7 @@ export default function LogIn() {
             }
             // dispatch login action and set the username
             dispatch(login({ uname }));
-            navigate("/");
+            navigate("/recipes");
           });
         }}
       >

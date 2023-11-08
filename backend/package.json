@@ -1,5 +1,5 @@
 {
-  "name": "94-recipes/backend",
+  "name": "94recipes-backend",
   "version": "1.0.0",
   "description": "backend for code assignment of recipe app",
   "main": "index.js",
@@ -15,7 +15,10 @@
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
     "express": "^4.18.2",
-    "mongodb": "6.2",
+    "mongodb": "6.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.2.0",
     "mongoose": "^8.0.0"
   }
 }

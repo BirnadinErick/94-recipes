@@ -73,7 +73,20 @@ function deleteARecipe(recipesCollection) {
   };
 }
 
+function getManyRecipes(recipesCollection) {
+  return async (req, res) => {
+    const recipes = await recipesCollection.find();
+
+    if ((await recipes.countDocuments) === 0) {
+      res.status(204).json({ msg: "No recipes have been created yet" });
+      return;
+    }
+    res.json({ recipes: await recipes.toArray() });
+  };
+}
+
 exports.getARecipe = getARecipe;
 exports.createARecipe = createARecipe;
 exports.updateARecipe = updateARecipe;
 exports.deleteARecipe = deleteARecipe;
+exports.getManyRecipes = getManyRecipes;
