@@ -23,11 +23,11 @@ function createAUser(usersCollection) {
   return async (req, res) => {
     // TODO: @2nd iteration validations
     const docToInsert = {
-      uname: req.query.uname,
-      passwd: await password.hash(req.query.passwd),
-      pic: req.query.pic,
-      bio: req.query.bio,
+      uname: req.body.uname,
+      passwd: await password.hash(req.body.passwd),
+      bio: req.body.bio,
     };
+
     const result = await usersCollection.insertOne(docToInsert);
     if (result.acknowledged) {
       res.status(201).json({ uname: docToInsert.uname });
