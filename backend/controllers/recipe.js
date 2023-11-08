@@ -14,7 +14,23 @@ function getARecipe(recipesCollection) {
 }
 
 function createARecipe(recipesCollection) {
-  return async (res, req) => {};
+  return async (req, res) => {
+    // TODO: document POST schema
+    const docToInsert = {
+      ...req.body,
+      views: 1,
+      likes: 0,
+    };
+
+    const result = await recipesCollection.insertOne(docToInsert);
+    if (result.acknowledged) {
+      delete docToInsert._id;
+      delete docToInsert.isdraft;
+      res.status(201).json(docToInsert);
+    } else {
+      res.status(501).json({ msg: "Unable to create the recipe", ...req.body });
+    }
+  };
 }
 
 function putARecipe(recipesCollection) {

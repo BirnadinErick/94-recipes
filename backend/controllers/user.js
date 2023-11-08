@@ -28,9 +28,12 @@ function createAUser(usersCollection) {
       pic: req.query.pic,
       bio: req.query.bio,
     };
-    await usersCollection.insertOne(docToInsert);
-
-    res.status(201).json({ uname: docToInsert.uname });
+    const result = await usersCollection.insertOne(docToInsert);
+    if (result.acknowledged) {
+      res.status(201).json({ uname: docToInsert.uname });
+    } else {
+      res.status(501).json({ msg: "Unable to create user" });
+    }
   };
 }
 
