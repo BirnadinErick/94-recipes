@@ -81,11 +81,11 @@ app.get(
 app.post(RECIPE_RESOURCE_PATH, recipeController.createARecipe(atlas.recipes));
 app.put(
   RECIPE_RESOURCE_PATH + "/:rid",
-  recipeController.getARecipe(atlas.recipes)
+  recipeController.updateARecipe(atlas.recipes)
 ); // !note this is PUT, not PATCH
 app.delete(
   RECIPE_RESOURCE_PATH + "/:rid",
-  recipeController.getARecipe(atlas.recipes)
+  recipeController.deleteARecipe(atlas.recipes)
 );
 
 console.info("[94Recipes API] configured routes.");
