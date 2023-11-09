@@ -6,7 +6,7 @@ export default function Header() {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const uname = useSelector((state) => state.auth.user.uname);
   return (
-    <header className="flex justify-between px-4">
+    <header className="flex justify-between px-4 py-2 bg-amber-50">
       <div className="flex justify-start items-center space-x-4">
         <div className="flex justify-start items-center space-x-2">
           <img className="h-12" src={logo} alt="94Recipes logo" />
@@ -38,7 +38,7 @@ export default function Header() {
           </li>
         </ul>
 
-        <button>Add new Recipe</button>
+        <Link to="/new-recipe">Add new Recipe</Link>
       </nav>
     </header>
   );

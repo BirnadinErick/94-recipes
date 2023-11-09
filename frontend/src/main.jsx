@@ -13,7 +13,10 @@ import store from "./utils/state/store";
 import Recipes from "./routes/recipes";
 import recipesLoader from "./utils/recipesLoader";
 import recipeLoader from "./utils/recipeLoader";
+import editRecipeLoader from "./utils/editRecipeLoader";
 import Recipe from "./routes/recipe";
+import NewRecipe from "./routes/new-recipe";
+import EditRecipe from "./routes/edit-recipe";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,15 @@ const router = createBrowserRouter([
         path: "/recipes/:slug",
         element: <Recipe />,
         loader: recipeLoader,
+      },
+      {
+        path: "/new-recipe",
+        element: <NewRecipe />,
+      },
+      {
+        path: "/edit-recipe/:slug",
+        element: <EditRecipe />,
+        loader: editRecipeLoader,
       },
     ],
   },

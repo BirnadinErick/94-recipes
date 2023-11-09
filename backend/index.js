@@ -114,7 +114,7 @@ app.get(
 app.get(RECIPE_RESOURCE_PATH, recipeController.getManyRecipes(atlas.recipes));
 app.post(RECIPE_RESOURCE_PATH, recipeController.createARecipe(atlas.recipes));
 app.put(
-  RECIPE_RESOURCE_PATH + "/:rid",
+  RECIPE_RESOURCE_PATH + "/:slug",
   recipeController.updateARecipe(atlas.recipes)
 ); // !note this is PUT, not PATCH
 app.delete(

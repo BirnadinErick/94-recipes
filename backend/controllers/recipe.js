@@ -1,3 +1,5 @@
+const { getSlug } = require("../utils/slug");
+
 function getARecipe(recipesCollection) {
   return async (req, res) => {
     try {
@@ -27,6 +29,7 @@ function createARecipe(recipesCollection) {
       ...req.body,
       views: 1,
       likes: 0,
+      slug: getSlug(req.body.title),
     };
 
     const result = await recipesCollection.insertOne(docToInsert);
@@ -42,11 +45,9 @@ function createARecipe(recipesCollection) {
 
 function updateARecipe(recipesCollection) {
   return async (req, res) => {
-    const rid = req.params.rid;
+    const slug = req.params.slug;
 
-    const staleRecord = await recipesCollection.findOne({
-      recipeId: parseInt(rid),
-    });
+    const staleRecord = await recipesCollection.findOne({ slug });
 
     const newRecord = {
       ...staleRecord,
