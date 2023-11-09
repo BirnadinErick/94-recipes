@@ -118,7 +118,7 @@ app.put(
   recipeController.updateARecipe(atlas.recipes)
 ); // !note this is PUT, not PATCH
 app.delete(
-  RECIPE_RESOURCE_PATH + "/:rid",
+  RECIPE_RESOURCE_PATH + "/:slug",
   recipeController.deleteARecipe(atlas.recipes)
 );
 
