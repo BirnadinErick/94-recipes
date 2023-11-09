@@ -12,7 +12,7 @@ export default function NewRecipe() {
 
   return (
     <section className="mt-4 px-16 relative">
-      <h1 className="text-3xl font-bold">New Recipes</h1>
+      <h1 className="text-3xl font-bold">New Recipe</h1>
       <div>
         <form
           method="post"

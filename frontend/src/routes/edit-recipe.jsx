@@ -42,8 +42,8 @@ export default function EditRecipe() {
   }, [dummyState]);
 
   return (
-    <section>
-      <h2>Edit Recipe</h2>
+    <section className="mt-4 px-16 relative">
+      <h1 className="text-3xl font-bold">Edit Recipe</h1>
       <div>
         <form
           method="post"
@@ -109,7 +109,12 @@ export default function EditRecipe() {
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
 
-          <button type="sumbit">update</button>
+          <button
+            className="py-2 px-4 bg-amber-300 rounded-sm font-bold absolute bottom-16 right-16"
+            type="sumbit"
+          >
+            Update
+          </button>
         </form>
       </div>
     </section>
