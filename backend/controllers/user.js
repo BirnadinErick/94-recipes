@@ -23,11 +23,11 @@ function createAUser(usersCollection) {
   return async (req, res) => {
     // TODO: @2nd iteration validations
     const docToInsert = {
-      uname: req.query.uname,
-      passwd: await password.hash(req.query.passwd),
-      pic: req.query.pic,
-      bio: req.query.bio,
+      uname: req.body.uname,
+      passwd: await password.hash(req.body.passwd),
+      bio: req.body.bio,
     };
+
     const result = await usersCollection.insertOne(docToInsert);
     if (result.acknowledged) {
       res.status(201).json({ uname: docToInsert.uname });
@@ -57,7 +57,24 @@ function deleteAUser(req, res) {
   throw Error("not implemented");
 }
 
+function authenticateUser(usersCollection) {
+  return async (req, res) => {
+    const credentials = req.body;
+
+    const user = await usersCollection.findOne({ uname: credentials.uname });
+    const ok = await password.validateHash(user.passwd, credentials.passwd);
+
+    if (ok) {
+      // TODO: store session
+      res.status(200).json({ msg: "OK" });
+    } else {
+      res.status(401).json({ msg: "Check username/password pair" });
+    }
+  };
+}
+
 exports.getAUser = getAUser;
 exports.createAUser = createAUser;
 exports.updateAUser = updateAUser;
 exports.deleteAUser = deleteAUser;
+exports.logInUser = authenticateUser;

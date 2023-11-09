@@ -19,4 +19,12 @@ async function hashPlainText(passwd) {
   return hash;
 }
 
+async function validateHash(hash, plaintext) {
+  const res = await bcryptLib.compare(plaintext, hash);
+
+  // compare returns boolean
+  return res;
+}
+
 exports.hash = hashPlainText;
+exports.validateHash = validateHash;
