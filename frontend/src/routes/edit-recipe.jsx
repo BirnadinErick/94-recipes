@@ -18,7 +18,7 @@ export default function EditRecipe() {
   const [dummyState, setDummyState] = useState("");
 
   const fetchStaleRecipe = async () => {
-    const res = await axios.get(`http://localhost:2003/v1/recipe/${slug}`);
+    const res = await axios.get(`${serverBase()}/v1/recipe/${slug}`);
     if (res.status === 200) {
       console.log("retrieved stale data, syncing UI");
 
@@ -53,7 +53,7 @@ export default function EditRecipe() {
             const parsedIngredients = createIngredients(ing);
 
             axios
-              .put(`http://localhost:2003/v1/recipe/${slug}`, {
+              .put(`${serverBase()}/v1/recipe/${slug}`, {
                 title,
                 body,
                 ptime: pTime,

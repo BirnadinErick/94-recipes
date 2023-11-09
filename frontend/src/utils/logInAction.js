@@ -1,10 +1,8 @@
 import axios from "axios";
+import { serverBase } from "./misc";
 
 export default async function logInFormAction(credentials) {
-  const result = await axios.post(
-    "http://localhost:2003/v1/user/login",
-    credentials
-  );
+  const result = await axios.post(`${serverBase()}/v1/user/login`, credentials);
 
   // using switch statements as this would not result in
   // branching **most** of the times

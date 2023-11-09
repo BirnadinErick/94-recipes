@@ -2,6 +2,7 @@ import { useState } from "react";
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { serverBase } from "../utils/misc";
 
 export default function RecipeCard({ recipe }) {
   const [isDeleteOpen, setDeleteOpen] = useState();
@@ -43,7 +44,7 @@ export default function RecipeCard({ recipe }) {
               className="bg-red-500 px-6 py-2 rounded-sm text-black/70 font-bold"
               onClick={() => {
                 const res = axios
-                  .delete(`http://localhost:2003/v1/recipe/${recipe.slug}`)
+                  .delete(`${serverBase()}/v1/recipe/${recipe.slug}`)
                   .then((res) => {
                     if (res.status === 202) {
                       console.log(res.data);

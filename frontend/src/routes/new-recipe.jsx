@@ -21,7 +21,7 @@ export default function NewRecipe() {
             const parsedIngredients = createIngredients(ing);
 
             axios
-              .post("http://localhost:2003/v1/recipe", {
+              .post("${serverBase()}/v1/recipe", {
                 title,
                 body,
                 ptime: pTime,
