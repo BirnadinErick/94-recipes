@@ -17,6 +17,8 @@ export const authSlice = createSlice({
       state.isAuth = false;
       state.user = {};
     },
+    // i got interested and decided to further develop this site
+    // so, below are not for assignment purposes
     bulkAdd: (state, action) => {
       state.recipes = action.payload;
     },
