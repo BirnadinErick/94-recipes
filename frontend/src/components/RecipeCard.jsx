@@ -39,6 +39,7 @@ export default function RecipeCard({ recipe }) {
               .then((res) => {
                 if (res.status === 202) {
                   console.log(res.data);
+                  document.location.reload();
                   return true;
                 } else {
                   console.error("something went wrong back there");

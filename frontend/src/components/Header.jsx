@@ -3,8 +3,9 @@ import logo from "../assets/logo.svg";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const isAuth = useSelector((state) => state.auth.isAuth);
-  const uname = useSelector((state) => state.auth.user.uname);
+  const isAuth = useSelector((state) => state.global.isAuth);
+  const uname = useSelector((state) => state.global.user.uname);
+
   return (
     <header className="flex justify-between px-4 py-2 bg-amber-50">
       <div className="flex justify-start items-center space-x-4">

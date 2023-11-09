@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logInAction from "../utils/logInAction";
 import { useDispatch } from "react-redux";
-import { login } from "../utils/state/authSlice";
+import { login } from "../utils/state/globalSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function LogIn() {
