@@ -11,8 +11,8 @@ export default function NewRecipe() {
   const navigate = useNavigate();
 
   return (
-    <section>
-      <h2>New Recipe</h2>
+    <section className="mt-4 px-16 relative">
+      <h1 className="text-3xl font-bold">New Recipes</h1>
       <div>
         <form
           method="post"
@@ -39,24 +39,28 @@ export default function NewRecipe() {
               });
           }}
         >
-          <input
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Title for the yummy"
-            required
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            name="ptime"
-            id="ptime"
-            placeholder="Prep Time? (in minutes)"
-            required
-            value={pTime}
-            onChange={(e) => setpTime(e.target.value)}
-          />
+          <div className="flex justify-start items-baseline space-x-6">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Title for the yummy"
+              className="bg-gray-800 p-2 text-white block"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              autoFocus
+            />
+            <input
+              type="text"
+              name="ptime"
+              id="ptime"
+              placeholder="Prep Time? (in minutes)"
+              required
+              value={pTime}
+              onChange={(e) => setpTime(e.target.value)}
+            />
+          </div>
           <textarea
             name="ing"
             id="ing"
@@ -76,9 +80,12 @@ export default function NewRecipe() {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
-
-          <button type="reset">clear everything</button>
-          <button type="sumbit">add new recipe</button>
+          <button
+            className="py-2 px-4 bg-amber-300 rounded-sm font-bold absolute bottom-16 right-16"
+            type="sumbit"
+          >
+            Add New Recipe
+          </button>
         </form>
       </div>
     </section>

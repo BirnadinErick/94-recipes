@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+form {
+  @apply space-y-2;
+}
+
+input {
+  @apply block p-2 bg-gray-800 my-2 text-white rounded-md;
+}
+
+textarea {
+  @apply block p-2 bg-gray-800 my-2 text-white rounded-md;
+}
