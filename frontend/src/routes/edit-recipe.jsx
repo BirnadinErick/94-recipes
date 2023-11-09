@@ -5,6 +5,9 @@ import {
   constructIngredientsString,
   createIngredients,
 } from "../utils/ingrediants";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { serverBase } from "../utils/misc";
 
 export default function EditRecipe() {
   // since user decided to edit the recipe, state of the datastore
@@ -99,15 +102,14 @@ export default function EditRecipe() {
             onChange={(e) => setIng(e.target.value)}
           ></textarea>
 
-          <textarea
-            name="body"
-            id="body"
-            cols="100"
-            rows="20"
-            placeholder="Recipe for that yummy goes here..."
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-          ></textarea>
+          <CKEditor
+            editor={ClassicEditor}
+            data={body}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setBody(data);
+            }}
+          />
 
           <button
             className="py-2 px-4 bg-amber-300 rounded-sm font-bold absolute bottom-16 right-16"

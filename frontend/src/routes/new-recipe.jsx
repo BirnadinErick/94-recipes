@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { createIngredients } from "../utils/ingrediants";
 import { useNavigate } from "react-router-dom";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { serverBase } from "../utils/misc";
 
 export default function NewRecipe() {
   const [title, setTitle] = useState("");
@@ -21,7 +24,7 @@ export default function NewRecipe() {
             const parsedIngredients = createIngredients(ing);
 
             axios
-              .post("${serverBase()}/v1/recipe", {
+              .post(`${serverBase()}/v1/recipe`, {
                 title,
                 body,
                 ptime: pTime,
@@ -71,15 +74,15 @@ export default function NewRecipe() {
             onChange={(e) => setIng(e.target.value)}
           ></textarea>
 
-          <textarea
-            name="body"
-            id="body"
-            cols="100"
-            rows="20"
-            placeholder="Recipe for that yummy goes here..."
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-          ></textarea>
+          <CKEditor
+            editor={ClassicEditor}
+            data="<p>Yot down that yummy recipe here"
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setBody(data);
+            }}
+          />
+
           <button
             className="py-2 px-4 bg-amber-300 rounded-sm font-bold absolute bottom-16 right-16"
             type="sumbit"

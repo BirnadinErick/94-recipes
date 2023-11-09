@@ -21,9 +21,10 @@ export default function Recipe() {
         ))}
       </div>
 
-      <div className="mt-12 font-serif text-lg tracking-wide leading-relaxed">
-        {recipe.body}
-      </div>
+      <div
+        className="mt-12 font-serif text-lg tracking-wide leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: recipe.body }}
+      ></div>
     </section>
   );
 }
