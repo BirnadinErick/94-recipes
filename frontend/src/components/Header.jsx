@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <header className="flex justify-between px-4 py-4 bg-gradient-to-b to-amber-50 from-amber-200">
       <div className="flex justify-start items-center space-x-4">
-        <Link to="/">
+        <Link to="/?me=1">
           <div className="flex justify-start items-center space-x-2">
             <img className="h-12" src={logo} alt="94Recipes logo" />
             <h2 className="text-2xl font-bold font-mono">94Recipes</h2>
