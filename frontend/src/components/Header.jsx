@@ -30,8 +30,8 @@ export default function Header() {
             <Link to="/recipes">Recipes</Link>
           </li>
           <li>
-            {/* TODO: logout if isAuth */}
-            <Link to="/login">{isAuth ? "Log Out" : "Log In"}</Link>
+            {/* just realized, in code assignment user meant no auth but just an enduser. */}
+            {/* <Link to="/login">{isAuth ? "Log Out" : "Log In"}</Link> */}
           </li>
           <li
             className="flex justify-start items-center"
